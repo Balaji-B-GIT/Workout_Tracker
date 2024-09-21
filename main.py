@@ -34,4 +34,16 @@ for exercise in exercises:
     name = exercise["name"]
     duration = exercise["duration_min"]
     calories = exercise["nf_calories"]
-    # response = response.post(url = "https://api.sheety.co/f2cc6990c1585bc16e71a2d26e7a6fbf/workoutTracker/workouts")
+    parameters = {
+        "sheet1":{
+            "date": date,
+            "time": time,
+            "exercise": name.title(),
+            "duration": duration,
+            "calories": calories
+        }
+    }
+
+    response = requests.post(url = "https://api.sheety.co/f2cc6990c1585bc16e71a2d26e7a6fbf/workoutTracker/sheet1",
+                             json=parameters)
+    print(response.text)
