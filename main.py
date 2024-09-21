@@ -1,6 +1,9 @@
+from datetime import datetime
+
 import requests
 import os
 from dotenv import load_dotenv
+import datetime as dt
 load_dotenv("C:/Python/Environmental variables/.env")
 
 nutritionix_id = os.getenv("nutritionix_id")
@@ -18,5 +21,17 @@ parameters = {
     "height_cm":182,
     "age":22
 }
-response = requests.post(url ="https://trackapi.nutritionix.com/v2/natural/exercise",params=parameters,headers=header)
-print(response.json())
+response = requests.post(url ="https://trackapi.nutritionix.com/v2/natural/exercise",data=parameters,headers=header)
+data = response.json()
+exercises = data["exercises"]
+no_of_exercises = len(exercises)
+
+today = dt.datetime.now()
+date = today.strftime("%d/%m/%Y")
+time = today.strftime("%H:%M")
+
+for exercise in exercises:
+    name = exercise["name"]
+    duration = exercise["duration_min"]
+    calories = exercise["nf_calories"]
+    # response = response.post(url = "https://api.sheety.co/f2cc6990c1585bc16e71a2d26e7a6fbf/workoutTracker/workouts")
