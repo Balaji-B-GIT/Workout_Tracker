@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import requests
 import os
 from dotenv import load_dotenv
@@ -43,7 +41,15 @@ for exercise in exercises:
             "calories": calories
         }
     }
+    headers = {
+        "Authorization":f"Bearer {os.getenv("sheety_bearer")}"
+    }
 
     response = requests.post(url = "https://api.sheety.co/f2cc6990c1585bc16e71a2d26e7a6fbf/workoutTracker/sheet1",
-                             json=parameters)
+                             json=parameters,
+                             headers = headers)
     print(response.text)
+
+# API'S USED:
+# NUTRITIONIX --- used exercise api to get exercise related data(has other api's) based on the natural human understandable input.
+# SHEETY --- used to create / add data / edit sheets through api calls
